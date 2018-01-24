@@ -32,9 +32,10 @@ func TestLastRowReturnsRowIndexOfLastMove(t *testing.T) {
 	for i := 5; i >= randomLastRowIndex; i-- {
 		c4.Grid[i][0] = enums.Red
 	}
+	
 	fmt.Println(c4.ToString())
 
-	c4.LastMoveColumnIndex = 1
+	c4.LastMoveColumnIndex = 0
 	assert.EqualValues(t, randomLastRowIndex, c4.lastMoveRowIndex())
 }
 

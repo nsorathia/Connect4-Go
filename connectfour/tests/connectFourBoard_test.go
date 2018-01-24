@@ -90,16 +90,14 @@ func TestToStringReturnsATypeOfString(t *testing.T) {
 }
 
 func TestCloneReturnsACopyOfC4Board(t *testing.T) {
-	rows := random(4, 9)
-	columns := random(4, 9)
-
-	c1 := createBoard(rows, columns)
+	c1 := createBoard(6, 7)
 	c1.Grid[3][4] = enums.Red
 
 	clone := c1.Clone()
 	//check structs are equal after clone
 	assert.EqualValues(t, c1, clone)
 
+	//modify c1
 	c1.LastMoveColumnIndex = 4
 	c1.Grid[2][2] = enums.Yellow
 
