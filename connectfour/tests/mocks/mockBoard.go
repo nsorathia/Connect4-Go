@@ -1,7 +1,7 @@
 package mocks
 
 import (
-	"games/abstract"
+	"games/connectfour/board"
 	"games/connectfour/enums"
 	"github.com/stretchr/testify/mock"
 )
@@ -10,11 +10,11 @@ type MockBoard struct {
 	mock.Mock
 }
 
-func NewBoard() abstract.Board {
+func NewBoard() board.Board {
 	return &MockBoard{}
 }
 
-func (b *MockBoard) Clone() abstract.Board {
+func (b *MockBoard) Clone() board.Board {
 	args := b.Called()
 	return  args.Get(0).(*MockBoard)
 }

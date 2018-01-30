@@ -1,4 +1,4 @@
-package abstract
+package board
 
 import (
 	"games/connectfour/enums"

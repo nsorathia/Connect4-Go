@@ -4,12 +4,11 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"games/abstract"
 	"games/connectfour/enums"
 )
 
 func init() {
-	abstract.NewBoard = NewConnectFourBoard
+	NewBoard = NewConnectFourBoard
 }
 
 //ConsecutiveTokensForWin is the number of adjacent tokens fom a single player to claim a win
@@ -22,7 +21,7 @@ type ConnectFourBoard struct {
 }
 
 //NewConnectFourBoard creates a ConnectFourBoard with default dimensions:  6 rows and 7 columns
-func NewConnectFourBoard() abstract.Board {
+func NewConnectFourBoard() Board {
 
 	newBoard, err := CreateNewBoard(6, 7)
 	if err != nil {
@@ -64,7 +63,7 @@ func (b *ConnectFourBoard) C4Columns() int {
 }
 
 //Clone is a method whihc returns a deep copy of the C4 board
-func (b *ConnectFourBoard) Clone() abstract.Board {
+func (b *ConnectFourBoard) Clone() Board {
 
 	duplicate := make([][]enums.Token, len(b.C4Grid))
 	for i := range b.C4Grid {

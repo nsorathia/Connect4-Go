@@ -1,17 +1,17 @@
 package dataDevice
 
 import (
+	"strings"
 	"bufio"
 	"fmt"
-	"games/abstract"
 	"os"
 )
 
 func init() {
-	abstract.NewDataDevice = NewIODevice
+	NewDataDevice = NewIODevice
 }
 
-func NewIODevice() abstract.DataDevice {
+func NewIODevice() DataDevice {
 	return &IODevice{}
 }
 
@@ -25,5 +25,5 @@ func (i *IODevice) Write(input string) {
 func (i *IODevice) Read() string {
 	reader := bufio.NewReader(os.Stdin)
 	text, _ := reader.ReadString('\n')
-	return text
+	return strings.Replace(text, "\n", "", -1)
 }

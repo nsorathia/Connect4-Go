@@ -1,11 +1,11 @@
 package mocks
 
 import (
+	"games/connectfour/dataDevice"
 	"github.com/stretchr/testify/mock"
-	"games/abstract"
 )
 
-func NewIODevice() abstract.DataDevice {
+func NewIODevice() dataDevice.DataDevice {
 	return &MockDataDevice{}
 }
 

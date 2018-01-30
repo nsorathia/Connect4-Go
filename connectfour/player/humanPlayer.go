@@ -1,9 +1,10 @@
 package player
 
 import (
+	"games/connectfour/dataDevice"
 	"errors"
 	"fmt"
-	"games/abstract"
+	"games/connectfour/board"
 	"games/connectfour/enums"
 	"games/connectfour/utilities"
 	"strconv"
@@ -12,14 +13,14 @@ import (
 type HumanPlayer struct {
 	playerName  string
 	playerToken enums.Token
-	device      abstract.DataDevice
+	device      dataDevice.DataDevice
 }
 
-func NewHumanPlayer(n string, t enums.Token, d abstract.DataDevice) HumanPlayer {
+func NewHumanPlayer(name string, token enums.Token, device dataDevice.DataDevice) HumanPlayer {
 	return HumanPlayer{
-		playerName:  n,
-		playerToken: t,
-		device:      d,
+		playerName:  name,
+		playerToken: token,
+		device:      device,
 	}
 }
 
@@ -31,7 +32,7 @@ func (h *HumanPlayer) Token() enums.Token {
 	return h.playerToken
 }
 
-func (h *HumanPlayer) Move(board abstract.Board) (int, error) {
+func (h *HumanPlayer) Move(board board.Board) (int, error) {
 
 	if board == nil {
 		return -1, errors.New("The board object is nil")
@@ -45,7 +46,8 @@ func (h *HumanPlayer) Move(board abstract.Board) (int, error) {
 		input := h.device.Read()
 		choice, err = strconv.Atoi(input)
 		if err != nil {
-			h.device.Write("Try Again...your choice was invalid")
+			fmt.Println(err.Error())
+			//h.device.Write("Try Again...your choice was invalid")
 		}
 	}
 	return choice, nil
