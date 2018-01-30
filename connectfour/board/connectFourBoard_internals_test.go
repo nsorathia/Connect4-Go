@@ -13,8 +13,8 @@ func TestIsColumnFullReturnsTrueIfColumnIsFull(t *testing.T) {
 	c4 := createBoard(6, 7)
 
 	//populate the first column
-	for i := range c4.Grid {
-		c4.Grid[i][0] = enums.Red
+	for i := range c4.C4Grid {
+		c4.C4Grid[i][0] = enums.Red
 	}
 
 	//test first column
@@ -30,12 +30,12 @@ func TestLastRowReturnsRowIndexOfLastMove(t *testing.T) {
 
 	//populate the first with random number of Tokens
 	for i := 5; i >= randomLastRowIndex; i-- {
-		c4.Grid[i][0] = enums.Red
+		c4.C4Grid[i][0] = enums.Red
 	}
-	
+
 	fmt.Println(c4.ToString())
 
-	c4.LastMoveColumnIndex = 0
+	c4.C4LastMoveColumnIndex = 0
 	assert.EqualValues(t, randomLastRowIndex, c4.lastMoveRowIndex())
 }
 
@@ -49,7 +49,7 @@ func TestIsHorizontalWinReturnsTrueIfLastMoveProducesHorizontalWin(t *testing.T)
 	c4 = createBoard(1, 7)
 	lb, rb = 0, 3
 	for i := lb; i <= rb; i++ {
-		c4.Grid[0][i] = enums.Red
+		c4.C4Grid[0][i] = enums.Red
 	}
 	//test each token if last dropped
 	for i := lb; i <= rb; i++ {
@@ -60,7 +60,7 @@ func TestIsHorizontalWinReturnsTrueIfLastMoveProducesHorizontalWin(t *testing.T)
 	c4 = createBoard(1, 7)
 	lb, rb = 3, 6
 	for i := lb; i <= rb; i++ {
-		c4.Grid[0][i] = enums.Red
+		c4.C4Grid[0][i] = enums.Red
 	}
 	//test each token if last dropped
 	for i := lb; i <= rb; i++ {
@@ -71,7 +71,7 @@ func TestIsHorizontalWinReturnsTrueIfLastMoveProducesHorizontalWin(t *testing.T)
 	c4 = createBoard(1, 7)
 	lb, rb = 2, 5
 	for i := lb; i <= rb; i++ {
-		c4.Grid[0][i] = enums.Red
+		c4.C4Grid[0][i] = enums.Red
 	}
 	//test each token if last dropped
 	for i := lb; i <= rb; i++ {
@@ -82,9 +82,9 @@ func TestIsHorizontalWinReturnsTrueIfLastMoveProducesHorizontalWin(t *testing.T)
 	c4 = createBoard(1, 7)
 	lb, rb = 2, 4
 	for i := lb; i <= rb; i++ {
-		c4.Grid[0][i] = enums.Red
+		c4.C4Grid[0][i] = enums.Red
 	}
-	c4.Grid[0][0] = enums.Red
+	c4.C4Grid[0][0] = enums.Red
 	//test each token if last dropped
 	for i := lb; i <= rb; i++ {
 		assert.False(t, c4.isHorizontalWin(0, i))
@@ -105,7 +105,7 @@ func TestIsVerticalWinReturnsTrueIfLastMoveProducesVerticalWin(t *testing.T) {
 	c4 = createBoard(6, 1)
 	lb, hb = 0, 3
 	for i := lb; i <= hb; i++ {
-		c4.Grid[i][0] = enums.Red
+		c4.C4Grid[i][0] = enums.Red
 	}
 	//test last dropped token
 	assert.True(t, c4.isVerticalWin(lb, 0))
@@ -119,7 +119,7 @@ func TestIsVerticalWinReturnsTrueIfLastMoveProducesVerticalWin(t *testing.T) {
 	c4 = createBoard(6, 1)
 	lb, hb = 2, 5
 	for i := lb; i <= hb; i++ {
-		c4.Grid[i][0] = enums.Red
+		c4.C4Grid[i][0] = enums.Red
 	}
 	//test last dropped token
 	assert.True(t, c4.isVerticalWin(lb, 0))
@@ -133,7 +133,7 @@ func TestIsVerticalWinReturnsTrueIfLastMoveProducesVerticalWin(t *testing.T) {
 	c4 = createBoard(6, 1)
 	lb, hb = 1, 4
 	for i := lb; i <= hb; i++ {
-		c4.Grid[i][0] = enums.Red
+		c4.C4Grid[i][0] = enums.Red
 	}
 	//test last dropped token
 	assert.True(t, c4.isVerticalWin(lb, 0))
@@ -145,11 +145,11 @@ func TestIsVerticalWinReturnsTrueIfLastMoveProducesVerticalWin(t *testing.T) {
 	// X
 	// O
 	c4 = createBoard(6, 1)
-	c4.Grid[1][0] = enums.Red
-	c4.Grid[2][0] = enums.Red
-	c4.Grid[3][0] = enums.Yellow
-	c4.Grid[4][0] = enums.Red
-	c4.Grid[5][0] = enums.Yellow
+	c4.C4Grid[1][0] = enums.Red
+	c4.C4Grid[2][0] = enums.Red
+	c4.C4Grid[3][0] = enums.Yellow
+	c4.C4Grid[4][0] = enums.Red
+	c4.C4Grid[5][0] = enums.Yellow
 
 	//test last dropped token
 	assert.False(t, c4.isVerticalWin(1, 0))
@@ -165,17 +165,16 @@ func TestIsDownDiagonalWinReturnsTrueIfLastMoveProducesADownDiagonalWin(t *testi
 	// # # # # # # #
 	// # # # # # # #
 	// # # # # # # #
-	c4 = createBoard(6,7)
-	c4.Grid[0][4] = enums.Red
-	c4.Grid[1][5] = enums.Red
-	c4.Grid[2][6] = enums.Red
+	c4 = createBoard(6, 7)
+	c4.C4Grid[0][4] = enums.Red
+	c4.C4Grid[1][5] = enums.Red
+	c4.C4Grid[2][6] = enums.Red
 
 	fmt.Println(c4.ToString())
 
 	assert.False(t, c4.isDownDiagonalWin(0, 4))
 	assert.False(t, c4.isDownDiagonalWin(1, 5))
 	assert.False(t, c4.isDownDiagonalWin(2, 6))
-	
 
 	// # # # # # # #
 	// # # X # # # #
@@ -183,11 +182,11 @@ func TestIsDownDiagonalWinReturnsTrueIfLastMoveProducesADownDiagonalWin(t *testi
 	// # # # # X # #
 	// # # # # # X #
 	// # # # # # # #
-	c4 = createBoard(6,7)
-	c4.Grid[1][2] = enums.Red
-	c4.Grid[2][3] = enums.Red
-	c4.Grid[3][4] = enums.Red
-	c4.Grid[4][5] = enums.Red
+	c4 = createBoard(6, 7)
+	c4.C4Grid[1][2] = enums.Red
+	c4.C4Grid[2][3] = enums.Red
+	c4.C4Grid[3][4] = enums.Red
+	c4.C4Grid[4][5] = enums.Red
 
 	fmt.Println(c4.ToString())
 
@@ -202,14 +201,14 @@ func TestIsDownDiagonalWinReturnsTrueIfLastMoveProducesADownDiagonalWin(t *testi
 	// # # # # # # #
 	// X # # # # # #
 	// # X # # # # #
-	c4 = createBoard(6,7)
-	c4.Grid[4][0] = enums.Red
-	c4.Grid[5][1] = enums.Red
+	c4 = createBoard(6, 7)
+	c4.C4Grid[4][0] = enums.Red
+	c4.C4Grid[5][1] = enums.Red
 
 	fmt.Println(c4.ToString())
 
 	assert.False(t, c4.isDownDiagonalWin(5, 1))
-	assert.False(t, c4.isDownDiagonalWin(4, 0))	
+	assert.False(t, c4.isDownDiagonalWin(4, 0))
 }
 
 func TestIsUpDiagonalWinReturnsTrueIfLastMoveProducesAUpDiagonalWin(t *testing.T) {
@@ -221,17 +220,16 @@ func TestIsUpDiagonalWinReturnsTrueIfLastMoveProducesAUpDiagonalWin(t *testing.T
 	// # # # # # # #
 	// # # # # # # #
 	// # # # # # # #
-	c4 = createBoard(6,7)
-	c4.Grid[0][2] = enums.Red
-	c4.Grid[1][1] = enums.Red
-	c4.Grid[2][0] = enums.Red
+	c4 = createBoard(6, 7)
+	c4.C4Grid[0][2] = enums.Red
+	c4.C4Grid[1][1] = enums.Red
+	c4.C4Grid[2][0] = enums.Red
 
 	fmt.Println(c4.ToString())
 
 	assert.False(t, c4.isUpDiagonalWin(0, 2))
 	assert.False(t, c4.isUpDiagonalWin(1, 1))
 	assert.False(t, c4.isUpDiagonalWin(2, 0))
-	
 
 	// # # # # # # #
 	// # # # X # # #
@@ -239,11 +237,11 @@ func TestIsUpDiagonalWinReturnsTrueIfLastMoveProducesAUpDiagonalWin(t *testing.T
 	// # X # # # # #
 	// X # # # # # #
 	// # # # # # # #
-	c4 = createBoard(6,7)
-	c4.Grid[4][0] = enums.Red
-	c4.Grid[3][1] = enums.Red
-	c4.Grid[2][2] = enums.Red
-	c4.Grid[1][3] = enums.Red
+	c4 = createBoard(6, 7)
+	c4.C4Grid[4][0] = enums.Red
+	c4.C4Grid[3][1] = enums.Red
+	c4.C4Grid[2][2] = enums.Red
+	c4.C4Grid[1][3] = enums.Red
 
 	fmt.Println(c4.ToString())
 
@@ -258,17 +256,15 @@ func TestIsUpDiagonalWinReturnsTrueIfLastMoveProducesAUpDiagonalWin(t *testing.T
 	// # # # # # # #
 	// # # # # # # X
 	// # # # # # X #
-	c4 = createBoard(6,7)
-	c4.Grid[4][6] = enums.Red
-	c4.Grid[5][5] = enums.Red
+	c4 = createBoard(6, 7)
+	c4.C4Grid[4][6] = enums.Red
+	c4.C4Grid[5][5] = enums.Red
 
 	fmt.Println(c4.ToString())
 
 	assert.False(t, c4.isUpDiagonalWin(5, 5))
-	assert.False(t, c4.isUpDiagonalWin(4, 6))	
+	assert.False(t, c4.isUpDiagonalWin(4, 6))
 }
-
-
 
 //helper test functions
 func createBoard(rows, columns int) ConnectFourBoard {
