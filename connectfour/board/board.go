@@ -13,7 +13,7 @@ type Board interface {
 
 	Clone() Board
 	IsWin() bool
-	SetPlayerMove(number int, token enums.Token) error
+	SetPlayerMove(columnNumber int, token enums.Token) error
 	GetAvailableMoves() []int
 	ToString() string
 }

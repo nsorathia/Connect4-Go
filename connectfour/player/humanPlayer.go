@@ -41,7 +41,7 @@ func (h *HumanPlayer) Move(board board.Board) (int, error) {
 	available := board.GetAvailableMoves()
 	choice, err := strconv.Atoi("-1")
 
-	for !utility.Contains(available, choice) {
+	for !utility.Contains(available, choice-1) {
 		h.device.Write(fmt.Sprintf("%v...Enter a column number for your token", h.playerName))
 		input := h.device.Read()
 		choice, err = strconv.Atoi(input)

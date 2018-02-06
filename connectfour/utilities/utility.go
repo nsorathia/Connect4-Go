@@ -18,6 +18,6 @@ func Contains(slice []int, element int) bool {
 
 //Random returns a random integer between the given min and max
 func Random(min, max int) int {
-	rand.Seed(time.Now().Unix())
+	rand.Seed(time.Now().UnixNano())
 	return rand.Intn(max-min) + min
 }
