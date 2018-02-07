@@ -61,6 +61,14 @@ func TestCalculateScoreReturnsScoreForEachMove(t *testing.T) {
 	}
 }
 
+func TestChooseBestMoveReturnsIndexOfHighestScore(t *testing.T) {
+	scores := []int{-237200, -212300, -157200, -233600, -233600, -7200, -157200}
+
+	index := chooseBestMove(scores)
+
+	assert.True(t, index == 5)
+}
+
 func TestCalculateBestMove(t *testing.T) {
 
 	gameboard, token := createRandomMovePlayBoard()

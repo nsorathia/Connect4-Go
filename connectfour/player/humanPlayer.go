@@ -46,8 +46,8 @@ func (h *HumanPlayer) Move(board board.Board) (int, error) {
 		input := h.device.Read()
 		choice, err = strconv.Atoi(input)
 		if err != nil {
-			fmt.Println(err.Error())
-			//h.device.Write("Try Again...your choice was invalid")
+			//fmt.Println(err.Error())
+			h.device.Write("Try Again...your choice was invalid")
 		}
 	}
 	return choice, nil

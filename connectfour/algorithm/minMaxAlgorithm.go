@@ -1,6 +1,7 @@
 package algorithm
 
 import (
+	"fmt"
 	"games/connectfour/board"
 	"games/connectfour/enums"
 	"games/connectfour/utilities"
@@ -45,7 +46,7 @@ func (m *MinMaxAlgorithm) CalculateBestMove(gameBoard board.Board, token enums.T
 
 	bestMove := chooseBestMove(scores)
 
-	return bestMove
+	return bestMove + 1 //return columnNumber not columnIndex
 }
 
 func graphVariants(variant *board.BoardVersion, token enums.Token, level int) {
@@ -70,23 +71,27 @@ func graphVariants(variant *board.BoardVersion, token enums.Token, level int) {
 	}
 }
 
-func calculateScore(variant *board.BoardVersion, level int) int {
+func calculateScore(boardVersion *board.BoardVersion, level int) int {
+
 	score := 0
+
 	points := int(math.Pow10(level))
 
-	if variant.Board.IsWin() {
+	if boardVersion.Board.IsWin() {
 		score = points
 
-	} else if opponentNextMoveCanWin(variant) {
+	} else if opponentNextMoveCanWin(boardVersion) {
 		score = -points
 
 	} else {
 
-		//check opposite 
-		for _, opponentsVariant := range variant.Versions {
+		//check opposite
+		for _, opponentsVariant := range boardVersion.Versions {
 			score -= calculateScore(&opponentsVariant, level-1)
 		}
 	}
+
+	//debug(boardVersion, score, level)
 
 	return score
 }
@@ -131,4 +136,12 @@ func getOpposingToken(token enums.Token) enums.Token {
 		return enums.Yellow
 	}
 	return enums.Red
+}
+
+func debug(boardVersion *board.BoardVersion, score, level int) {
+
+	if level > 5 {
+		fmt.Printf("Level: %v   Score: %v \n", level, score)
+		fmt.Println(boardVersion.Board.ToString())
+	}
 }
