@@ -2,6 +2,7 @@ package board
 
 import (
 	"games/connectfour/enums"
+	"games/connectfour/config"
 )
 
 //Board is an abstract representation of the ConnectFourBoard
@@ -18,6 +19,9 @@ type Board interface {
 	ToString() string
 }
 
-type factory func() Board
+
+var GameType = config.GetString("game")
 
 var NewBoard factory
+
+type factory func() Board

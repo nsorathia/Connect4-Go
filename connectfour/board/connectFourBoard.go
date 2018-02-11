@@ -6,12 +6,10 @@ import (
 	"fmt"
 	"games/connectfour/enums"
 	"games/connectfour/utilities"
-	"games/connectfour/config"
 )
 
 func init() {
-	gametype := config.GetString("game")
-	if gametype == "connectfour" {
+	if GameType == "connectfour" {
 		NewBoard = NewConnectFourBoard
 	}
 }

@@ -8,12 +8,10 @@ import (
 	"math"
 	"os"
 	"strconv"
-	"games/connectfour/config"
 )
 
 func init() {
-	temp := config.GetString("algorithm")
-	if temp == "minmax" {
+	if AlgorithmType == "minmax" {
 		NewAlgorithm = NewMinMaxAlgorithm
 	}
 }

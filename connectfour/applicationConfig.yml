@@ -1,5 +1,5 @@
 version: v1
-# connectfour, tictactoe
+# connectfour, tictactoe (*** NOTE ***: tic-tac-toe game is not properly implemented. I just wanted to play around and load different game at runtime via config)
 game: 'connectfour'
 
 # oneplayer, twoplayer
