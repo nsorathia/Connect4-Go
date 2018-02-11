@@ -5,10 +5,15 @@ import (
 	"errors"
 	"fmt"
 	"games/connectfour/enums"
+	"games/connectfour/utilities"
+	"games/connectfour/config"
 )
 
 func init() {
-	NewBoard = NewConnectFourBoard
+	gametype := config.GetString("game")
+	if gametype == "connectfour" {
+		NewBoard = NewConnectFourBoard
+	}
 }
 
 //ConsecutiveTokensForWin is the number of adjacent tokens fom a single player to claim a win
@@ -190,8 +195,8 @@ func (b *ConnectFourBoard) lastMoveRowIndex() int {
 
 //isHorizontalWin is a method with determines if the last move was part of a horizontal Win
 func (b *ConnectFourBoard) isHorizontalWin(rowIndex, columnIndex int) bool {
-	leftBound := max(0, columnIndex-3)
-	rightBound := min(b.C4Columns()-1, columnIndex+3)
+	leftBound := utility.Max(0, columnIndex-3)
+	rightBound := utility.Min(b.C4Columns()-1, columnIndex+3)
 	token := b.C4Grid[rowIndex][columnIndex]
 	count := 0
 
@@ -212,7 +217,7 @@ func (b *ConnectFourBoard) isHorizontalWin(rowIndex, columnIndex int) bool {
 //isVerticalWin is a method which determines if the last move was part of a vertical win
 func (b *ConnectFourBoard) isVerticalWin(rowIndex, columnIndex int) bool {
 	lowBound := rowIndex
-	highBound := min(rowIndex+3, b.C4Rows()-1)
+	highBound := utility.Min(rowIndex+3, b.C4Rows()-1)
 	token := b.C4Grid[rowIndex][columnIndex]
 	count := 0
 
@@ -400,18 +405,3 @@ func (b *ConnectFourBoard) Columns() int {
 	return len(b.C4Grid[0])
 }
 
-//min is a helper function which returns the minimun of two integers
-func min(x, y int) int {
-	if x < y {
-		return x
-	}
-	return y
-}
-
-//max is a helper function which returns the maximum of two integers
-func max(x, y int) int {
-	if x > y {
-		return x
-	}
-	return y
-}

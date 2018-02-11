@@ -1,0 +1,12 @@
+version: v1
+# connectfour, tictactoe
+game: 'connectfour'
+
+# oneplayer, twoplayer
+game-type: 'oneplayer'
+
+# 1 - easy,  3, medium,  5 - hard,  7 - expert, 9 - you cant win
+difficulty-level: 3
+
+# algorithm 
+algorithm: 'minmax'

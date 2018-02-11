@@ -9,7 +9,7 @@ import (
 
 func TestNewTwoPlayerGameReturnsAGame(t *testing.T) {
 
-	newGame := game.NewConnectFourGame()
+	newGame := game.NewBoardGame()
 	assert.NotNil(t, newGame)
 	assert.NotNil(t, newGame.Board())
 	assert.NotNil(t, newGame.Device())

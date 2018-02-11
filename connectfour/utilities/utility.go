@@ -21,3 +21,20 @@ func Random(min, max int) int {
 	rand.Seed(time.Now().UnixNano())
 	return rand.Intn(max-min) + min
 }
+
+
+//Min is a helper function which returns the minimun of two integers
+func Min(x, y int) int {
+	if x < y {
+		return x
+	}
+	return y
+}
+
+//Max is a helper function which returns the maximum of two integers
+func Max(x, y int) int {
+	if x > y {
+		return x
+	}
+	return y
+}

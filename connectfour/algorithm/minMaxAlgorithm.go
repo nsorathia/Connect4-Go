@@ -8,10 +8,14 @@ import (
 	"math"
 	"os"
 	"strconv"
+	"games/connectfour/config"
 )
 
 func init() {
-	NewAlgorithm = NewMinMaxAlgorithm
+	temp := config.GetString("algorithm")
+	if temp == "minmax" {
+		NewAlgorithm = NewMinMaxAlgorithm
+	}
 }
 
 //MinMaxAlgorithm is a recursive algorithm for choosing a players next best move:  https://en.wikipedia.org/wiki/Minimax

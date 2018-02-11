@@ -7,6 +7,7 @@ import (
 	"games/connectfour/player"
 )
 
+//Game represents a game between players
 type Game interface {
 	Players() []player.Player
 	Device() dataDevice.DataDevice
@@ -14,9 +15,12 @@ type Game interface {
 }
 
 type factory func() Game
+
+//NewGame is a factory method which returns a game type
 var NewGame factory
 
 
+//Play facilitates the game
 func Play() {
 
 	game := NewGame()
