@@ -8,12 +8,6 @@ import (
 	"games/connectfour/utilities"
 )
 
-func init() {
-	if GameType == "tictactoe" {
-		NewBoard = NewTicTacToeBoard
-	}
-}
-
 const ConsecutiveTokensForTicTacToeWin = 3
 
 type TicTacToeBoard struct {

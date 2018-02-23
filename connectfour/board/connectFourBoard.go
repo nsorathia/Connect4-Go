@@ -8,12 +8,6 @@ import (
 	"games/connectfour/utilities"
 )
 
-func init() {
-	if GameType == "connectfour" {
-		NewBoard = NewConnectFourBoard
-	}
-}
-
 //ConsecutiveTokensForWin is the number of adjacent tokens fom a single player to claim a win
 const ConsecutiveTokensForWin = 4
 
@@ -402,4 +396,3 @@ func (b *ConnectFourBoard) Rows() int {
 func (b *ConnectFourBoard) Columns() int {
 	return len(b.C4Grid[0])
 }
-

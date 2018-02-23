@@ -12,7 +12,7 @@ import (
 func TestMoveReturnsErrorIfBoardIsNil(t *testing.T) {
 
 	mockDevice := mocks.MockDataDevice{}
-	human := player.NewHumanPlayer("Frodo", enums.Red, &mockDevice)
+	human := player.NewHumanPlayer(0, -1, "Frodo", enums.Red, &mockDevice)
 
 	_, err := human.Move(nil)
 	assert.Error(t, err)
@@ -30,7 +30,7 @@ func TestMoveCallsGetAvailableMoves(t *testing.T) {
 	mockBoard := mocks.MockBoard{}
 	mockBoard.Mock.On("GetAvailableMoves").Return(availableMoves)
 
-	human := player.NewHumanPlayer("Frodo", enums.Red, &mockDevice)
+	human := player.NewHumanPlayer(0, -1, "Frodo", enums.Red, &mockDevice)
 	_, _ = human.Move(&mockBoard)
 
 	mockBoard.Mock.AssertCalled(t, "GetAvailableMoves")
@@ -49,7 +49,7 @@ func TestMoveEnforcesValidBoardChoice(t *testing.T) {
 	mockBoard := mocks.MockBoard{}
 	mockBoard.Mock.On("GetAvailableMoves").Return(availableMoves)
 
-	human := player.NewHumanPlayer("Frodo", enums.Red, &mockDevice)
+	human := player.NewHumanPlayer(0, -1, "Frodo", enums.Red, &mockDevice)
 	choice, err := human.Move(&mockBoard)
 
 	assert.Nil(t, err)

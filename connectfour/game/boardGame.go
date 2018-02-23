@@ -1,8 +1,9 @@
 package game
 
 import (
-	"games/connectfour/config"
 	"games/connectfour/board"
+	"games/connectfour/config"
+	"games/connectfour/data"
 	"games/connectfour/dataDevice"
 	"games/connectfour/enums"
 	"games/connectfour/player"
@@ -16,34 +17,40 @@ func init() {
 
 //BoardGame represents a game with two human players
 type BoardGame struct {
+	gameId  int
 	device  dataDevice.DataDevice
 	board   board.Board
 	players []player.Player
 }
 
 //NewBoardGame sets the player's names and returns a Two Player Game
-func NewBoardGame() Game {
+func NewBoardGame(repo data.Repository, device dataDevice.DataDevice) Game {
 
-	device := dataDevice.NewDataDevice()
+	gameName := config.GetString("game")
+	gameID, _ := repo.SaveGame(gameName)
+
 	board := board.NewBoard()
-	players := setUpPlayers(device)
+	players := setUpPlayers(gameID, device, repo)
 
-	tpg := BoardGame{
+	return &BoardGame{
+		gameId:  gameID,
 		device:  device,
 		board:   board,
 		players: players,
 	}
 
-	return &tpg
 }
 
-func setUpPlayers(device dataDevice.DataDevice) []player.Player {
+//START HERE pass game ID to players and save to db
+func setUpPlayers(gameId int, device dataDevice.DataDevice, repo data.Repository) []player.Player {
 	var player2 player.Player
 	var player1 player.Player
 
 	device.Write("Enter Player1's name: ")
 	player1Name := device.Read()
-	humanPlayer1 := player.NewHumanPlayer(player1Name, enums.Red, device)
+	player1ID, _ := repo.SavePlayer(gameId, player1Name, enums.Red)
+
+	humanPlayer1 := player.NewHumanPlayer(gameId, player1ID, player1Name, enums.Red, device)
 	player1 = &humanPlayer1
 
 	device.Write("Would you like to player against the computer? Y/N ")
@@ -55,14 +62,16 @@ func setUpPlayers(device dataDevice.DataDevice) []player.Player {
 			difficultyLevel = config.GetInt("difficulty-level")
 		}
 
-		//TODO  validate user input
-		aiPlayer := player.NewAIPlayer(difficultyLevel)
+		player2Id, _ := repo.SavePlayer(gameId, "R2D2", enums.Yellow)
+		aiPlayer := player.NewAIPlayer(gameId, player2Id, difficultyLevel)
 		player2 = &aiPlayer
 
 	} else {
 		device.Write("Enter Player2's name: ")
 		player2Name := device.Read()
-		humanPlayer2 := player.NewHumanPlayer(player2Name, enums.Yellow, device)
+		player2Id, _ := repo.SavePlayer(gameId, player1Name, enums.Yellow)
+
+		humanPlayer2 := player.NewHumanPlayer(gameId, player2Id, player2Name, enums.Yellow, device)
 		player2 = &humanPlayer2
 	}
 
@@ -82,4 +91,9 @@ func (g *BoardGame) Device() dataDevice.DataDevice {
 //Board returns the game Board
 func (g *BoardGame) Board() board.Board {
 	return g.board
+}
+
+//GameId represent the unique recorded id of the game
+func (g *BoardGame) GameID() int {
+	return g.gameId
 }

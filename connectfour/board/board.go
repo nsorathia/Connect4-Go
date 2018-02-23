@@ -1,8 +1,8 @@
 package board
 
 import (
-	"games/connectfour/enums"
 	"games/connectfour/config"
+	"games/connectfour/enums"
 )
 
 //Board is an abstract representation of the ConnectFourBoard
@@ -19,9 +19,19 @@ type Board interface {
 	ToString() string
 }
 
-
-var GameType = config.GetString("game")
+type factory func() Board
 
 var NewBoard factory
 
-type factory func() Board
+func init() {
+	gameType := config.GetString("game")
+
+	switch gameType {
+
+	case "tictactoe":
+		NewBoard = NewTicTacToeBoard
+
+	default:
+		NewBoard = NewConnectFourBoard
+	}
+}

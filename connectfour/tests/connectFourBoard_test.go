@@ -306,6 +306,13 @@ func TestConnectFourBoardImplementsBoard(t *testing.T) {
 
 }
 
+func TestNewBoardLogsToDB(t *testing.T) {
+
+	board := board.NewBoard()
+
+	assert.NotNil(t, board)
+}
+
 func createBoard(rows, columns int) board.ConnectFourBoard {
 	grid := make([][]enums.Token, rows)
 	for i := range grid {

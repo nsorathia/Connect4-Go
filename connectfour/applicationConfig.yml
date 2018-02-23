@@ -3,10 +3,13 @@ version: v1
 game: 'connectfour'
 
 # oneplayer, twoplayer
-game-type: 'oneplayer'
+num-of-players: 'one'
 
 # 1 - easy,  3, medium,  5 - hard,  7 - expert, 9 - you cant win
 difficulty-level: 3
 
 # algorithm 
 algorithm: 'minmax'
+
+#Postgres sql connection string
+dbconn: 'postgresql://gamer:pass1234@localhost/board_games?sslmode=disable'

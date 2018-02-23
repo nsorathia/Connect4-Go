@@ -1,23 +1,26 @@
 package player
 
 import (
-	"games/connectfour/dataDevice"
 	"errors"
 	"fmt"
 	"games/connectfour/board"
+	"games/connectfour/dataDevice"
 	"games/connectfour/enums"
 	"games/connectfour/utilities"
 	"strconv"
 )
 
 type HumanPlayer struct {
+	id          int
 	playerName  string
 	playerToken enums.Token
 	device      dataDevice.DataDevice
 }
 
-func NewHumanPlayer(name string, token enums.Token, device dataDevice.DataDevice) HumanPlayer {
+func NewHumanPlayer(gameId, id int, name string, token enums.Token, device dataDevice.DataDevice) HumanPlayer {
+
 	return HumanPlayer{
+		id:          id,
 		playerName:  name,
 		playerToken: token,
 		device:      device,
@@ -50,4 +53,8 @@ func (h *HumanPlayer) Move(board board.Board) (int, error) {
 		}
 	}
 	return choice, nil
+}
+
+func (h *HumanPlayer) Id() int {
+	return h.id
 }
