@@ -16,6 +16,4 @@ type factory func() Repository
 //NewRepository is a factory that will return a Implemented Repository
 var NewRepository factory
 
-func init() {
-	NewRepository = NewPostgresRepository
-}
+

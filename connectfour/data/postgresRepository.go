@@ -9,19 +9,32 @@ import (
 	_ "github.com/lib/pq" //the postgres driver utilized by database package above
 )
 
+
+func init() {
+	NewRepository = NewPostgresRepository
+}
+
+//InsertGame is the sql statemnt to insert a game to a database repository
 const InsertGame = "INSERT INTO games(type) VALUES($1) RETURNING id"
+
+//InsertPlayer is the sql statemnt to insert a player to a database repository
 const InsertPlayer = "INSERT INTO players(name, game_id, token) VALUES($1, $2, $3) RETURNING id"
+
+//InsertMove is the sql statemnt to insert a move to a database repository
 const InsertMove = "INSERT INTO game_play(game_id, player_id, move) VALUES($1, $2, $3)"
 
 var connectionString = config.GetString("dbconn")
 
+//NewPostgresRepository is the factory implementation of NewRepository
 func NewPostgresRepository() Repository {
 	return &PostgresRepository{}
 }
 
+//PostgresRepository is a type of database repository
 type PostgresRepository struct {
 }
 
+//SaveGame persists the type of game playing to a database repository
 func (pr *PostgresRepository) SaveGame(gameType string) (int, error) {
 
 	if gameType == "connectfour" || gameType == "tictactoe" {
@@ -34,12 +47,14 @@ func (pr *PostgresRepository) SaveGame(gameType string) (int, error) {
 	panic("gameType must be set to either connectfour or tictactoe")
 }
 
+//SavePlayer persists the player names and token for a particular game to a database repository
 func (pr *PostgresRepository) SavePlayer(gameID int, name string, token enums.Token) (int, error) {
 	db := openDB()
 	defer close(db)
 	return savePlayer(db, gameID, name, token), nil
 }
 
+//SaveMove persists the column Index of the move to a database repository
 func (pr *PostgresRepository) SaveMove(gameID, playerID, move int) {
 
 	db := openDB()

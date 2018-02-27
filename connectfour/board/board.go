@@ -21,6 +21,7 @@ type Board interface {
 
 type factory func() Board
 
+//NewBoard is a a factory that abstracts the implementation of a game board.  
 var NewBoard factory
 
 func init() {

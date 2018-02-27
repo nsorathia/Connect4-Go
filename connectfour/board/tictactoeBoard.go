@@ -261,7 +261,7 @@ func (b *TicTacToeBoard) isUpDiagonalWin(rowIndex, columnIndex int) bool {
 	leftLowerRowIndex, leftLowerColumnIndex := b.leftLowerCoordinate(rowIndex, columnIndex)
 	rightUpperRowIndex, rightUpperColumnIndex := b.rightUpperCoordinate(rowIndex, columnIndex)
 
-	//test if that there are less than 4 tokens otherwise no need to go further
+	//test if that there are less than 3 tokens otherwise no need to go further
 	if rightUpperColumnIndex-leftLowerColumnIndex < ConsecutiveTokensForTicTacToeWin-1 {
 		return false
 	}
