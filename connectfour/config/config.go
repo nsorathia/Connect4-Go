@@ -7,18 +7,17 @@ import (
 
 
 func init() {
-	LaodConfigs()
+	loadConfigs()
 }
 
-func LaodConfigs() {
+func loadConfigs() {
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath("$HOME/go/src/games/connectfour/")
 	viper.SetConfigName("applicationConfig")
 	err := viper.ReadInConfig()
 	if err != nil { 
-		panic(fmt.Errorf("Fatal error config file: %s \n", err))
+		panic(fmt.Errorf("fatal error config file: %s", err))
 	}
-
 
 	//viper.SetDefault("game", "connectfour")
 	//viper.SetDefault("game-type", "oneplayer")
@@ -26,17 +25,17 @@ func LaodConfigs() {
 	//viper.SetDefault("algorithm", "minmax")
 }
 
+//GetString returns a string given the Config propertyNmae
 func GetString(propertyName string) string {
-	val := viper.GetString(propertyName)
-	return val
+	return viper.GetString(propertyName)
 }
 
+//GetInt returns a int given the Config propertyNmae
 func GetInt(propertyName string) int {
-	val := viper.GetInt(propertyName)
-	return val
+	return viper.GetInt(propertyName)
 }
 
+//GetBool returns a bool given the Config propertyNmae
 func GetBool(propertyName string) bool {
-	val := viper.GetBool(propertyName)
-	return val
+	return viper.GetBool(propertyName)
 }
